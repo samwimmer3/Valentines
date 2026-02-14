@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kensington, Be My Valentine?</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffd6e0, #fff0f5);
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    text-align: center;
+}
+
+.container {
+    background: white;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+    max-width: 420px;
+    position: relative;
+    z-index: 5;
+}
+
+h1 {
+    font-size: 2.2em;
+    color: #ff4d6d;
+    margin-bottom: 15px;
+    animation: fadeIn 2s ease forwards;
+}
+
+.name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ff1e4d;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: slideIn 2s ease forwards 1s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+}
+
+#yesBtn:hover {
+    background-color: #ff1e4d;
+}
+
+#noBtn {
+    background-color: #ddd;
+    position: relative;
+}
+
+#message {
+    margin-top: 25px;
+    font-size: 1.2em;
+    color: #ff4d6d;
+    min-height: 40px;
+}
+
+.flower {
+    position: absolute;
+    font-size: 22px;
+    animation: floatUp linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(100vh) rotate(0deg); }
+    to { transform: translateY(-10vh) rotate(360deg); }
+}
+
+.confetti {
+    position: absolute;
+    font-size: 20px;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Will you be my Valentine?</h1>
+    <div class="name">Kensington 💕</div>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes ❤️</button>
+        <button id="noBtn">No 😢</button>
+    </div>
+
+    <div id="message"></div>
+</div>
+
+<script>
+
+// Floating Flowers
+const flowers = ["🌸","🌷","🌹","💐","💖"];
+for (let i = 0; i < 25; i++) {
+    const flower = document.createElement("div");
+    flower.className = "flower";
+    flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+    flower.style.left = Math.random() * 100 + "vw";
+    flower.style.animationDuration = (6 + Math.random() * 8) + "s";
+    document.body.appendChild(flower);
+}
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const message = document.getElementById("message");
+
+// NO button runs away
+noBtn.addEventListener("click", () => {
+    const x = Math.random() * 200 - 100;
+    const y = Math.random() * 200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    message.innerHTML = "Wait wait wait... think about this 😭";
+});
+
+// YES button chaos + funny message
+yesBtn.addEventListener("click", () => {
+
+    message.innerHTML = "LET'S GOOOOO 🥹💍 You just signed a legally binding cuddle contract.";
+
+    // Confetti explosion
+    for (let i = 0; i < 60; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.innerText = "💖";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.top = "-10px";
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 3000);
+    }
+
+    // Button grows dramatically
+    yesBtn.style.transform = "scale(1.5)";
+});
+
+</script>
+
+</body>
+</html>
